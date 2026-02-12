@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Background Remover</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <canvas id="energy-field"></canvas>
+
+  <div class="theme-toggle">
+    <button id="themeBtn">🌙</button>
+  </div>
+
+  <div class="container">
+    <h1>AI Background Remover</h1>
+    <p>Remove image backgrounds instantly using AI</p>
+
+    <div class="upload-box" id="dropZone">
+      <input type="file" id="imageInput" accept="image/*" hidden />
+      <p>Drag & Drop Image or <span id="browse">Browse</span></p>
+    </div>
+
+    <div class="preview">
+      <div class="image-box">
+        <h3>Before</h3>
+        <img id="beforeImage" />
+      </div>
+
+      <div class="image-box">
+        <h3>After</h3>
+        <div class="loader" id="loader"></div>
+        <img id="resultImage" />
+      </div>
+    </div>
+
+    <button id="removeBtn">Remove Background</button>
+    <a id="downloadLink" download="bg-removed.png">Download Image</a>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
