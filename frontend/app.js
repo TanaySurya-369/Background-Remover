@@ -40,7 +40,7 @@ removeBtn.onclick = async () => {
   formData.append("file", file);
 
   try {
-    const res = await fetch("http://localhost:8000/remove-bg", {
+    const res = await fetch("https://background-remover-api-280008019035.asia-south2.run.app/remove-bg", {
       method: "POST",
       body: formData
     });
