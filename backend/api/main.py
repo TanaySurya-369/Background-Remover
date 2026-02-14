@@ -7,7 +7,7 @@ import io
 
 app = FastAPI()
 
-# ✅ CORS (keep this)
+# CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,16 +23,12 @@ def health():
 @app.post("/remove-bg")
 async def remove_bg(file: UploadFile = File(...)):
     image_bytes = await file.read()
-    image = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
+    input_image = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
 
-    output = remove(image)
+    output_image = remove(input_image)
 
     buffer = io.BytesIO()
-    output.save(buffer, format="PNG")
+    output_image.save(buffer, format="PNG")
     buffer.seek(0)
 
-    # ✅ THIS IS THE KEY FIX
-    return StreamingResponse(
-        buffer,
-        media_type="image/png"
-    )
+    return StreamingResponse(buffer, media_type="image/png")
