@@ -7,10 +7,10 @@ import io
 
 app = FastAPI()
 
-# CORS
+# CORS settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:5500", "https://<your-github-pages-url>"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,7 +25,7 @@ async def remove_bg(file: UploadFile = File(...)):
     image_bytes = await file.read()
     input_image = Image.open(io.BytesIO(image_bytes)).convert("RGBA")
 
-    output_image = remove(input_image)
+    output_image = Image.open(io.BytesIO(remove(input_image)))
 
     buffer = io.BytesIO()
     output_image.save(buffer, format="PNG")
