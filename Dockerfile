@@ -17,7 +17,10 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 # Copy backend source code
-COPY backend /app
+COPY backend /app/backend
 
-# Set the command to run the application
-CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Expose port for clarity (Cloud Run uses $PORT)
+EXPOSE 8080
+
+# Command to start the application
+CMD ["uvicorn", "backend.api.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
