@@ -10,17 +10,17 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements file
-COPY backend/requirements.txt /app/requirements.txt
+COPY requirements.txt /app/requirements.txt
 
 # Install Python dependencies
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
-# Copy backend source code
-COPY backend /app/backend
+# Copy API source code
+COPY . /app
 
 # Expose port for clarity (Cloud Run uses $PORT)
 EXPOSE 8080
 
 # Command to start the application
-CMD ["uvicorn", "backend.api.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
